@@ -291,7 +291,7 @@ sub update_db
 	}
 
 	$dbi_s = $dbi_h->prepare("INSERT INTO signatures (message, domain, selector, pass, error) VALUES(?, ?, ?, ?, ?)");
-	foreach my $dd (0 .. $#dkim_data)
+	foreach my $dd (0 .. @dkim_data-1)
 	{
 		my $sdomain;
 		my $sdomain_id;
@@ -323,7 +323,7 @@ sub update_db
 	$dbi_s->finish;
 
 	$dbi_s = $dbi_h->prepare("INSERT INTO arcauthresults (message, instance, arc_client_addr) VALUES(?, ?, ?)");
-	foreach my $aar (0 .. $#arc_policy_data)
+	foreach my $aar (0 .. @arc_policy_data-1)
 	{
 		my $instance;
 		my $arc_client_addr;
@@ -341,7 +341,7 @@ sub update_db
 	$dbi_s->finish;
 
 	$dbi_s = $dbi_h->prepare("INSERT INTO arcseals (message, domain, selector, instance) VALUES(?, ?, ?, ?)");
-	foreach my $as (0 .. $#arc_policy_data)
+	foreach my $as (0 .. @arc_policy_data-1)
 	{
 		my $sdomain;
 		my $sdomain_id;
